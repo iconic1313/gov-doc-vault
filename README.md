@@ -384,7 +384,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 👨‍💻 Author
 
-Ronak Vaghela 
+varshil chauhan
 
 <div align="center">
 
