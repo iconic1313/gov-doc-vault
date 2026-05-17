@@ -1,0 +1,25 @@
+# ============================================================
+# .gitignore — GovDoc Vault
+# ============================================================
+
+# ── Environment & Secrets (CRITICAL — never commit) ─────────
+.env
+__env.js
+
+# ── Firebase ─────────────────────────────────────────────────
+.firebase/
+firebase-debug.log
+firestore-debug.log
+storage.rules.bak
+
+# ── OS ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Editor ───────────────────────────────────────────────────
+.vscode/settings.json
+.idea/
+
+# ── Logs ─────────────────────────────────────────────────────
+*.log
+logs/

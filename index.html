@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="GovDoc Vault — Secure Document Storage Portal" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>GovDoc Vault | Secure Document Portal</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/utilities.css" />
+</head>
+<body class="auth-body">
+
+  <!-- ═══════════════════════════════════════════
+       NATIONAL HEADER BAR
+  ════════════════════════════════════════════ -->
+  <div class="national-bar" role="banner" aria-label="Government of India">
+    <div class="container national-bar__inner">
+      <span class="national-bar__flag" aria-hidden="true">
+        <span class="flag-saffron"></span>
+        <span class="flag-white"></span>
+        <span class="flag-green"></span>
+      </span>
+      <span class="national-bar__text">Government of India &nbsp;|&nbsp; Ministry of Electronics &amp; Information Technology</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PORTAL HEADER
+  ════════════════════════════════════════════ -->
+  <header class="portal-header" role="banner">
+    <div class="container portal-header__inner">
+      <div class="portal-header__brand">
+        <div class="brand-emblem" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="4" fill="var(--color-primary)"/>
+            <path d="M12 14h16l8 8v14H12V14z" stroke="var(--color-accent)" stroke-width="1.5" fill="none"/>
+            <path d="M28 14v8h8" stroke="var(--color-accent)" stroke-width="1.5" fill="none"/>
+            <line x1="16" y1="26" x2="32" y2="26" stroke="#ffffff" stroke-width="1.2" opacity="0.6"/>
+            <line x1="16" y1="30" x2="32" y2="30" stroke="#ffffff" stroke-width="1.2" opacity="0.6"/>
+            <line x1="16" y1="34" x2="24" y2="34" stroke="#ffffff" stroke-width="1.2" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-name">GovDoc Vault</h1>
+          <p class="brand-tagline">Secure Document Storage &amp; Sharing Portal</p>
+        </div>
+      </div>
+      <div class="portal-header__meta">
+        <span class="header-badge">
+          <span class="badge-dot" aria-hidden="true"></span>
+          Secured Portal
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN AUTH CONTENT
+  ════════════════════════════════════════════ -->
+  <main class="auth-main" role="main">
+    <div class="container auth-container">
+
+      <!-- INFO COLUMN -->
+      <section class="auth-info" aria-label="Portal Information">
+        <div class="info-badge">
+          <span class="info-badge__icon" aria-hidden="true">&#9432;</span>
+          Official Government Portal
+        </div>
+        <h2 class="auth-info__heading">Store. Manage. Share.</h2>
+        <p class="auth-info__desc">
+          A secure platform for citizens to digitally store government-issued documents and share controlled access with family members.
+        </p>
+
+        <ul class="feature-list" aria-label="Portal Features">
+          <li class="feature-list__item">
+            <span class="feature-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l4 4 8-8" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Upload &amp; manage Aadhaar, PAN, Passport and more
+          </li>
+          <li class="feature-list__item">
+            <span class="feature-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l4 4 8-8" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Share documents with family — controlled access
+          </li>
+          <li class="feature-list__item">
+            <span class="feature-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l4 4 8-8" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            End-to-end secure, OTP-verified login
+          </li>
+          <li class="feature-list__item">
+            <span class="feature-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l4 4 8-8" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Revoke access anytime — full control stays with you
+          </li>
+        </ul>
+
+        <div class="info-notice" role="note">
+          <strong>Note:</strong> This portal is intended solely for Indian citizens. Misuse is punishable under the IT Act, 2000.
+        </div>
+      </section>
+
+      <!-- AUTH CARD COLUMN -->
+      <section class="auth-card-wrapper" aria-label="Authentication">
+        <div class="auth-card">
+          <div class="auth-card__header">
+            <h2 class="auth-card__title">Citizen Login</h2>
+            <p class="auth-card__subtitle">Enter your registered mobile number to receive OTP</p>
+          </div>
+
+          <!-- STEP 1: PHONE -->
+          <div class="auth-step" id="step-phone" role="group" aria-labelledby="step-phone-label">
+            <form class="auth-form" id="form-phone" novalidate autocomplete="off">
+              <div class="form-group">
+                <label class="form-label" for="input-phone" id="step-phone-label">
+                  Mobile Number <span class="required-mark" aria-label="required">*</span>
+                </label>
+                <div class="input-with-prefix">
+                  <span class="input-prefix" aria-hidden="true">+91</span>
+                  <input
+                    class="form-input"
+                    type="tel"
+                    id="input-phone"
+                    name="phone"
+                    placeholder="00000 00000"
+                    maxlength="10"
+                    pattern="[6-9][0-9]{9}"
+                    inputmode="numeric"
+                    autocomplete="tel-national"
+                    aria-required="true"
+                    aria-describedby="phone-hint phone-error"
+                  />
+                </div>
+                <span class="form-hint" id="phone-hint">10-digit mobile number, starting with 6–9</span>
+                <span class="form-error" id="phone-error" role="alert" aria-live="polite" hidden></span>
+              </div>
+
+              <!-- reCAPTCHA container -->
+              <div id="recaptcha-container" class="recaptcha-wrapper" aria-label="reCAPTCHA verification"></div>
+
+              <button class="btn btn--primary btn--full" type="submit" id="btn-send-otp">
+                <span class="btn__text">Send OTP</span>
+                <span class="btn__loader" hidden aria-hidden="true">
+                  <span class="spinner"></span>
+                </span>
+              </button>
+            </form>
+          </div>
+
+          <!-- STEP 2: OTP (hidden initially) -->
+          <div class="auth-step auth-step--hidden" id="step-otp" role="group" aria-labelledby="step-otp-label" aria-hidden="true">
+            <form class="auth-form" id="form-otp" novalidate autocomplete="off">
+              <p class="otp-sent-notice" id="step-otp-label" aria-live="polite">
+                OTP sent to <strong id="otp-phone-display"></strong>
+              </p>
+
+              <div class="form-group">
+                <label class="form-label" for="input-otp">
+                  Enter OTP <span class="required-mark" aria-label="required">*</span>
+                </label>
+                <div class="otp-input-group">
+                  <input class="form-input otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="OTP digit 1" />
+                  <input class="form-input otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="OTP digit 2" />
+                  <input class="form-input otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="OTP digit 3" />
+                  <input class="form-input otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="OTP digit 4" />
+                  <input class="form-input otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="OTP digit 5" />
+                  <input class="form-input otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="OTP digit 6" />
+                </div>
+                <input type="hidden" id="input-otp" name="otp" />
+                <span class="form-error" id="otp-error" role="alert" aria-live="polite" hidden></span>
+              </div>
+
+              <div class="otp-actions">
+                <button class="btn btn--primary btn--full" type="submit" id="btn-verify-otp">
+                  <span class="btn__text">Verify &amp; Login</span>
+                  <span class="btn__loader" hidden aria-hidden="true">
+                    <span class="spinner"></span>
+                  </span>
+                </button>
+                <div class="otp-resend">
+                  <span class="otp-timer" id="otp-timer" aria-live="polite">Resend OTP in <strong id="countdown">30</strong>s</span>
+                  <button class="btn btn--link" type="button" id="btn-resend" disabled>Resend OTP</button>
+                </div>
+                <button class="btn btn--ghost btn--full" type="button" id="btn-change-number">&#8592; Change Number</button>
+              </div>
+            </form>
+          </div>
+
+        </div><!-- /.auth-card -->
+
+        <p class="auth-legal">
+          By logging in, you agree to the
+          <a href="#" class="link">Terms of Service</a> and
+          <a href="#" class="link">Privacy Policy</a> of the Government of India.
+        </p>
+      </section>
+
+    </div><!-- /.auth-container -->
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer class="portal-footer" role="contentinfo">
+    <div class="container portal-footer__inner">
+      <p class="footer-text">
+        &copy; <span id="footer-year"></span> Ministry of Electronics &amp; Information Technology, Government of India.
+        All rights reserved.
+      </p>
+      <ul class="footer-links" aria-label="Footer links">
+        <li><a href="#" class="footer-link">Help</a></li>
+        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+        <li><a href="#" class="footer-link">Terms of Use</a></li>
+        <li><a href="#" class="footer-link">Grievance</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       TOAST NOTIFICATION CONTAINER
+  ════════════════════════════════════════════ -->
+  <div class="toast-container" id="toast-container" aria-live="assertive" aria-atomic="true"></div>
+
+  <!--
+    ENVIRONMENT INJECTION (generated at deploy / copy __env.example.js → __env.js locally)
+    Must load BEFORE any Firebase module.
+  -->
+  <script src="/__env.js"></script>
+
+  <!-- Auth Module — wires OTP flow to AuthService -->
+  <script type="module" src="js/modules/auth.module.js"></script>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    // OTP digit auto-advance
+    document.querySelectorAll('.otp-input').forEach((input, idx, inputs) => {
+      input.addEventListener('input', () => {
+        input.value = input.value.replace(/\D/g, '').slice(-1);
+        if (input.value && idx < inputs.length - 1) inputs[idx + 1].focus();
+        syncOtpHidden(inputs);
+      });
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !input.value && idx > 0) inputs[idx - 1].focus();
+      });
+      input.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const paste = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+        [...paste].forEach((ch, i) => { if (inputs[i]) inputs[i].value = ch; });
+        if (inputs[paste.length - 1]) inputs[paste.length - 1].focus();
+        syncOtpHidden(inputs);
+      });
+    });
+
+    function syncOtpHidden(inputs) {
+      document.getElementById('input-otp').value = [...inputs].map(i => i.value).join('');
+    }
+  </script>
+</body>
+</html>

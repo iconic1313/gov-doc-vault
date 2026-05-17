@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Dashboard | GovDoc Vault</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/utilities.css" />
+</head>
+<body class="dashboard-body">
+
+  <!-- ═══════════════════════════════════════════
+       NATIONAL BAR
+  ════════════════════════════════════════════ -->
+  <div class="national-bar" role="banner" aria-label="Government of India">
+    <div class="container national-bar__inner">
+      <span class="national-bar__flag" aria-hidden="true">
+        <span class="flag-saffron"></span>
+        <span class="flag-white"></span>
+        <span class="flag-green"></span>
+      </span>
+      <span class="national-bar__text">Government of India &nbsp;|&nbsp; Ministry of Electronics &amp; Information Technology</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       DASHBOARD LAYOUT WRAPPER
+  ════════════════════════════════════════════ -->
+  <div class="dashboard-layout">
+
+    <!-- ─── SIDEBAR ─────────────────────────── -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main Navigation">
+      <div class="sidebar__brand">
+        <div class="brand-emblem brand-emblem--sm" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="4" fill="var(--color-primary)"/>
+            <path d="M12 14h16l8 8v14H12V14z" stroke="var(--color-accent)" stroke-width="1.5" fill="none"/>
+            <path d="M28 14v8h8" stroke="var(--color-accent)" stroke-width="1.5" fill="none"/>
+            <line x1="16" y1="26" x2="32" y2="26" stroke="#ffffff" stroke-width="1.2" opacity="0.6"/>
+            <line x1="16" y1="30" x2="32" y2="30" stroke="#ffffff" stroke-width="1.2" opacity="0.6"/>
+            <line x1="16" y1="34" x2="24" y2="34" stroke="#ffffff" stroke-width="1.2" opacity="0.6"/>
+          </svg>
+        </div>
+        <span class="sidebar__brand-name">GovDoc Vault</span>
+      </div>
+
+      <div class="sidebar__user" id="sidebar-user" aria-label="Logged in user">
+        <div class="user-avatar" aria-hidden="true" id="user-avatar-initials">RK</div>
+        <div class="user-info">
+          <span class="user-name" id="sidebar-user-name">Rahul Kumar</span>
+          <span class="user-phone" id="sidebar-user-phone">+91 98765 43210</span>
+        </div>
+      </div>
+
+      <nav class="sidebar__nav" aria-label="Portal Sections">
+        <ul class="nav-list" role="list">
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link nav-link--active" aria-current="page">
+              <span class="nav-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <rect x="2" y="2" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                  <rect x="10" y="2" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                  <rect x="2" y="10" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                  <rect x="10" y="10" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </span>
+              My Documents
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="family.html" class="nav-link" id="nav-shared" aria-label="Shared with Family">
+              <span class="nav-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <circle cx="6" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+                  <circle cx="12" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M1 15c0-2.21 2.239-4 5-4s5 1.79 5 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M12 11c1.5 0 3 .9 4 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              Family Access
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" id="nav-upload-trigger" aria-label="Upload Document">
+              <span class="nav-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <path d="M9 12V4M9 4l-3 3M9 4l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 13v1a1 1 0 001 1h10a1 1 0 001-1v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              Upload Document
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="profile.html" class="nav-link" aria-label="My Profile">
+              <span class="nav-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <circle cx="9" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M2 16c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              My Profile
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar__footer">
+        <button class="btn btn--danger-ghost btn--full" id="btn-signout" type="button">
+          <span class="nav-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M11 11l3-3-3-3M14 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          Sign Out
+        </button>
+        <p class="sidebar__version">GovDoc Vault v1.0.0</p>
+      </div>
+    </aside>
+
+    <!-- ─── MAIN CONTENT ─────────────────────── -->
+    <div class="dashboard-main">
+
+      <!-- TOP BAR -->
+      <header class="topbar" role="banner" aria-label="Dashboard header">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="sidebar">
+          <span class="hamburger" aria-hidden="true"></span>
+        </button>
+        <div class="topbar__title">
+          <h1 class="topbar__heading" id="page-heading">My Documents</h1>
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol class="breadcrumb__list">
+              <li class="breadcrumb__item"><a href="dashboard.html" class="breadcrumb__link">Home</a></li>
+              <li class="breadcrumb__item breadcrumb__item--active" aria-current="page">My Documents</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="topbar__actions">
+          <button class="btn btn--primary btn--sm" id="btn-upload-doc" type="button" aria-haspopup="dialog">
+            + Upload Document
+          </button>
+        </div>
+      </header>
+
+      <!-- CONTENT AREA -->
+      <main class="content-area" role="main" aria-label="Document Management">
+
+        <!-- STATS STRIP -->
+        <section class="stats-strip" aria-label="Document Summary">
+          <div class="stat-card">
+            <span class="stat-card__value" id="stat-total">0</span>
+            <span class="stat-card__label">Total Documents</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__value" id="stat-shared">0</span>
+            <span class="stat-card__label">Shared Documents</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__value" id="stat-members">0</span>
+            <span class="stat-card__label">Family Members</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__value" id="stat-storage">0 MB</span>
+            <span class="stat-card__label">Storage Used</span>
+          </div>
+        </section>
+
+        <!-- FILTER + SEARCH BAR -->
+        <section class="doc-controls" aria-label="Filter and Search Documents">
+          <div class="doc-controls__search">
+            <label class="sr-only" for="doc-search">Search Documents</label>
+            <input
+              class="form-input search-input"
+              type="search"
+              id="doc-search"
+              placeholder="Search by document name or type..."
+              autocomplete="off"
+              aria-label="Search documents"
+            />
+          </div>
+          <div class="doc-controls__filters">
+            <label class="sr-only" for="filter-type">Filter by Type</label>
+            <select class="form-select" id="filter-type" aria-label="Filter by document type">
+              <option value="">All Types</option>
+              <option value="aadhaar">Aadhaar Card</option>
+              <option value="pan">PAN Card</option>
+              <option value="passport">Passport</option>
+              <option value="driving">Driving Licence</option>
+              <option value="voter">Voter ID</option>
+              <option value="other">Other</option>
+            </select>
+            <label class="sr-only" for="filter-sort">Sort By</label>
+            <select class="form-select" id="filter-sort" aria-label="Sort documents">
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="name">Name A–Z</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- DOCUMENT GRID -->
+        <section class="doc-section" aria-label="Document List">
+
+          <!-- EMPTY STATE (shown when no documents) -->
+          <div class="empty-state" id="empty-state" hidden>
+            <div class="empty-state__icon" aria-hidden="true">
+              <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+                <rect x="10" y="8" width="28" height="36" rx="2" stroke="var(--color-border)" stroke-width="2"/>
+                <path d="M38 8l8 8v28a2 2 0 01-2 2H18" stroke="var(--color-border)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M38 8v8h8" stroke="var(--color-border)" stroke-width="2"/>
+                <line x1="16" y1="22" x2="32" y2="22" stroke="var(--color-border)" stroke-width="1.5"/>
+                <line x1="16" y1="28" x2="32" y2="28" stroke="var(--color-border)" stroke-width="1.5"/>
+                <line x1="16" y1="34" x2="24" y2="34" stroke="var(--color-border)" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <h3 class="empty-state__title">No Documents Uploaded</h3>
+            <p class="empty-state__desc">Upload your first government document to get started.</p>
+            <button class="btn btn--primary" id="btn-upload-empty" type="button">Upload Document</button>
+          </div>
+
+          <!-- LOADING STATE -->
+          <div class="loading-state" id="loading-state" aria-label="Loading documents">
+            <span class="spinner spinner--lg" aria-hidden="true"></span>
+            <span class="sr-only">Loading your documents...</span>
+          </div>
+
+          <!-- DOCUMENT GRID (populated by JS) -->
+          <div class="doc-grid" id="doc-grid" role="list" aria-label="Your documents"></div>
+
+        </section>
+
+      </main><!-- /.content-area -->
+
+    </div><!-- /.dashboard-main -->
+  </div><!-- /.dashboard-layout -->
+
+  <!-- ═══════════════════════════════════════════
+       UPLOAD MODAL
+  ════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-upload" role="dialog" aria-modal="true" aria-labelledby="modal-upload-title" hidden>
+    <div class="modal" tabindex="-1">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-upload-title">Upload Document</h2>
+        <button class="modal__close" id="modal-upload-close" aria-label="Close upload dialog" type="button">&#10005;</button>
+      </div>
+      <div class="modal__body">
+        <form class="auth-form" id="form-upload" novalidate autocomplete="off">
+          <div class="form-group">
+            <label class="form-label" for="upload-title">Document Name <span class="required-mark">*</span></label>
+            <input class="form-input" type="text" id="upload-title" name="title" placeholder="e.g. Aadhaar Card" maxlength="60" aria-required="true" />
+            <span class="form-error" id="upload-title-error" role="alert" hidden></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="upload-type">Document Type <span class="required-mark">*</span></label>
+            <select class="form-select" id="upload-type" name="type" aria-required="true">
+              <option value="">Select type</option>
+              <option value="aadhaar">Aadhaar Card</option>
+              <option value="pan">PAN Card</option>
+              <option value="passport">Passport</option>
+              <option value="driving">Driving Licence</option>
+              <option value="voter">Voter ID</option>
+              <option value="other">Other</option>
+            </select>
+            <span class="form-error" id="upload-type-error" role="alert" hidden></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="upload-file">File <span class="required-mark">*</span></label>
+            <div class="file-drop-zone" id="file-drop-zone" tabindex="0" role="button" aria-describedby="file-hint">
+              <div class="file-drop-zone__icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <path d="M16 20V10M16 10l-5 5M16 10l5 5" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M6 22v2a2 2 0 002 2h16a2 2 0 002-2v-2" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <p class="file-drop-zone__text">Drag &amp; drop file here, or <span class="link">browse</span></p>
+              <input class="file-input-hidden" type="file" id="upload-file" name="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file to upload" />
+            </div>
+            <span class="form-hint" id="file-hint">Accepted: PDF, JPG, PNG. Max size: 5 MB.</span>
+            <div class="file-preview" id="file-preview" hidden></div>
+            <span class="form-error" id="upload-file-error" role="alert" hidden></span>
+          </div>
+
+          <div class="modal__actions">
+            <button class="btn btn--ghost" type="button" id="btn-upload-cancel">Cancel</button>
+            <button class="btn btn--primary" type="submit" id="btn-upload-submit">
+              <span class="btn__text">Upload</span>
+              <span class="btn__loader" hidden><span class="spinner"></span></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SHARE MODAL
+  ════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-share" role="dialog" aria-modal="true" aria-labelledby="modal-share-title" hidden>
+    <div class="modal" tabindex="-1">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-share-title">Share Document</h2>
+        <button class="modal__close" id="modal-share-close" aria-label="Close share dialog" type="button">&#10005;</button>
+      </div>
+      <div class="modal__body">
+        <p class="modal__doc-name" id="share-doc-name"></p>
+
+        <div class="form-group">
+          <label class="form-label" for="share-phone">Family Member's Mobile Number</label>
+          <div class="input-with-prefix">
+            <span class="input-prefix">+91</span>
+            <input class="form-input" type="tel" id="share-phone" placeholder="00000 00000" maxlength="10" inputmode="numeric" />
+          </div>
+          <span class="form-error" id="share-phone-error" role="alert" hidden></span>
+        </div>
+
+        <div class="shared-with-list" id="shared-with-list" aria-label="People with access">
+          <p class="shared-with-list__heading">Currently Shared With</p>
+          <div id="shared-members-container">
+            <p class="text-muted text-sm">Not shared with anyone yet.</p>
+          </div>
+        </div>
+
+        <div class="modal__actions">
+          <button class="btn btn--ghost" type="button" id="btn-share-cancel">Cancel</button>
+          <button class="btn btn--primary" type="button" id="btn-share-submit">
+            <span class="btn__text">Share Access</span>
+            <span class="btn__loader" hidden><span class="spinner"></span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       DELETE CONFIRM MODAL
+  ════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-delete" role="dialog" aria-modal="true" aria-labelledby="modal-delete-title" hidden>
+    <div class="modal modal--sm" tabindex="-1">
+      <div class="modal__header">
+        <h2 class="modal__title modal__title--danger" id="modal-delete-title">Delete Document</h2>
+        <button class="modal__close" id="modal-delete-close" aria-label="Close delete dialog" type="button">&#10005;</button>
+      </div>
+      <div class="modal__body">
+        <p class="modal__confirm-text">
+          Are you sure you want to permanently delete <strong id="delete-doc-name"></strong>?
+          This action cannot be undone.
+        </p>
+        <div class="modal__actions">
+          <button class="btn btn--ghost" type="button" id="btn-delete-cancel">Cancel</button>
+          <button class="btn btn--danger" type="button" id="btn-delete-confirm">
+            <span class="btn__text">Delete Permanently</span>
+            <span class="btn__loader" hidden><span class="spinner"></span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       TOAST CONTAINER
+  ════════════════════════════════════════════ -->
+  <div class="toast-container" id="toast-container" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- DOCUMENT CARD TEMPLATE (cloned by JS) -->
+  <template id="doc-card-template">
+    <article class="doc-card" role="listitem">
+      <div class="doc-card__header">
+        <div class="doc-type-badge" data-bind="type-badge"></div>
+        <div class="doc-card__menu">
+          <button class="icon-btn" type="button" aria-label="Document options" aria-haspopup="true">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <circle cx="9" cy="4" r="1.2" fill="currentColor"/>
+              <circle cx="9" cy="9" r="1.2" fill="currentColor"/>
+              <circle cx="9" cy="14" r="1.2" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="dropdown-menu" role="menu" hidden>
+            <button class="dropdown-item" type="button" data-action="view" role="menuitem">View</button>
+            <button class="dropdown-item" type="button" data-action="edit" role="menuitem">Edit</button>
+            <button class="dropdown-item" type="button" data-action="share" role="menuitem">Share</button>
+            <button class="dropdown-item" type="button" data-action="delete" role="menuitem">Delete</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-card__body">
+        <h3 class="doc-card__title" data-bind="title"></h3>
+        <p class="doc-card__meta">
+          <span data-bind="type-label" class="doc-card__type"></span>
+          <span class="doc-card__sep" aria-hidden="true">·</span>
+          <span data-bind="size" class="doc-card__size"></span>
+        </p>
+        <p class="doc-card__date">Uploaded: <time data-bind="date"></time></p>
+      </div>
+      <div class="doc-card__footer">
+        <span class="share-indicator" data-bind="share-indicator" hidden>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <circle cx="4" cy="6" r="1.5" stroke="currentColor" stroke-width="1.2"/>
+            <circle cx="9" cy="3" r="1.5" stroke="currentColor" stroke-width="1.2"/>
+            <circle cx="9" cy="9" r="1.5" stroke="currentColor" stroke-width="1.2"/>
+            <line x1="5.3" y1="5.3" x2="7.7" y2="3.7" stroke="currentColor" stroke-width="1.2"/>
+            <line x1="5.3" y1="6.7" x2="7.7" y2="8.3" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          Shared
+        </span>
+      </div>
+    </article>
+  </template>
+
+  <script>
+    // Sidebar toggle (mobile)
+    const toggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    toggle?.addEventListener('click', () => {
+      const isOpen = sidebar.classList.toggle('sidebar--open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Dropdown menus for doc cards (event delegation)
+    document.addEventListener('click', (e) => {
+      // Close all open dropdowns first
+      document.querySelectorAll('.dropdown-menu:not([hidden])').forEach(d => d.hidden = true);
+      const btn = e.target.closest('.icon-btn');
+      if (btn) {
+        const menu = btn.parentElement.querySelector('.dropdown-menu');
+        if (menu) { menu.hidden = false; e.stopPropagation(); }
+      }
+    });
+
+    // Ensure all modals start hidden on page load
+    // Modules own their own open/close logic — this just guarantees clean state
+    document.querySelectorAll('.modal-overlay').forEach(m => { m.hidden = true; });
+
+    // Upload modal open triggers — these are safe to bind here
+    // because modal-upload exists in the static HTML
+    function openUploadModal() {
+      const m = document.getElementById('modal-upload');
+      if (m) { m.hidden = false; document.body.style.overflow = 'hidden'; }
+    }
+    function closeUploadModal() {
+      const m = document.getElementById('modal-upload');
+      if (m) { m.hidden = true; document.body.style.overflow = ''; }
+    }
+
+    ['btn-upload-doc','btn-upload-empty','nav-upload-trigger'].forEach(id => {
+      document.getElementById(id)?.addEventListener('click', openUploadModal);
+    });
+
+    ['modal-upload-close','btn-upload-cancel'].forEach(id => {
+      document.getElementById(id)?.addEventListener('click', closeUploadModal);
+    });
+
+    document.getElementById('modal-upload')
+      ?.addEventListener('click', (e) => {
+        if (e.target.id === 'modal-upload') closeUploadModal();
+      });
+
+    // File drop zone
+    const dropZone = document.getElementById('file-drop-zone');
+    const fileInput = document.getElementById('upload-file');
+    dropZone?.addEventListener('click', () => fileInput?.click());
+    dropZone?.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') fileInput?.click(); });
+    dropZone?.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('file-drop-zone--active'); });
+    dropZone?.addEventListener('dragleave', () => dropZone.classList.remove('file-drop-zone--active'));
+    dropZone?.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('file-drop-zone--active');
+      if (e.dataTransfer.files[0]) fileInput.files = e.dataTransfer.files;
+    });
+
+    // Escape key — only close upload modal here; other modals handle their own Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeUploadModal();
+    });
+  </script>
+
+  <!-- Environment injection (must precede all Firebase modules) -->
+  <script src="/__env.js"></script>
+
+  <!-- Dashboard data layer -->
+  <script type="module" src="js/modules/documents.module.js"></script>
+</body>
+</html>

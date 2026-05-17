@@ -1,0 +1,50 @@
+{
+  "firestore": {
+    "rules": "rules/firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "rules/storage.rules"
+  },
+  "hosting": {
+    "public": ".",
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "rules/**",
+      "docs/**",
+      ".env"
+    ],
+    "rewrites": [
+      {
+        "source": "/dashboard",
+        "destination": "/dashboard.html"
+      },
+      {
+        "source": "/profile",
+        "destination": "/profile.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(js|mjs)",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        ]
+      },
+      {
+        "source": "**",
+        "headers": [
+          { "key": "X-Frame-Options",           "value": "DENY" },
+          { "key": "X-Content-Type-Options",     "value": "nosniff" },
+          { "key": "Referrer-Policy",             "value": "strict-origin-when-cross-origin" },
+          { "key": "Permissions-Policy",          "value": "geolocation=(), microphone=(), camera=()" },
+          { "key": "Strict-Transport-Security",   "value": "max-age=31536000; includeSubDomains" }
+        ]
+      }
+    ]
+  }
+}

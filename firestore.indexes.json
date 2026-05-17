@@ -1,0 +1,38 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "documents",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "ownerId",    "order": "ASCENDING"  },
+        { "fieldPath": "uploadedAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "documents",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "sharedWith", "arrayConfig": "CONTAINS" },
+        { "fieldPath": "uploadedAt", "order": "DESCENDING"     }
+      ]
+    },
+    {
+      "collectionGroup": "familyLinks",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "docId",     "order": "ASCENDING" },
+        { "fieldPath": "targetUid", "order": "ASCENDING" },
+        { "fieldPath": "status",    "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "familyLinks",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "requestorId", "order": "ASCENDING" },
+        { "fieldPath": "createdAt",   "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

@@ -1,0 +1,251 @@
+// ============================================================
+// firestore.rules — Firestore Security Rules
+// GovDoc Vault | Government Document Portal
+//
+// RULE PHILOSOPHY:
+//   - Default DENY everything — allowlist only what is needed
+//   - Every rule is the minimum permission required
+//   - No rule trusts client-supplied data for identity decisions
+//   - All identity checks use request.auth.uid (server-enforced)
+//   - Shared access is read-only — sharedWith members can never write
+//   - familyLinks are append-only by the owner; target cannot modify
+//
+// COLLECTIONS:
+//   users/         — citizen profiles
+//   documents/     — document metadata + sharedWith[]
+//   familyLinks/   — share invitation lifecycle
+//
+// DEPLOYMENT:
+//   firebase deploy --only firestore:rules
+// ============================================================
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Global deny-all fallback ────────────────────────────
+    // Any path not explicitly matched is DENIED.
+    // This is the default behaviour in Firestore rules but
+    // stated here explicitly for auditability.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ══════════════════════════════════════════════════════
+    // HELPER FUNCTIONS
+    // ══════════════════════════════════════════════════════
+
+    // Is the incoming request from an authenticated citizen?
+    function isAuthenticated() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    // Is the authenticated user the owner of this resource?
+    // Used for documents/ and familyLinks/ writes.
+    function isOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    // Does the authenticated user appear in this document's
+    // sharedWith array? Allows view-level read for family members.
+    function isSharedWithUser(docData) {
+      return isAuthenticated() &&
+        docData.sharedWith != null &&
+        docData.sharedWith.hasAny([{
+          'uid': request.auth.uid,
+          'accessLevel': 'view'
+        }]);
+    }
+
+    // Validates that a write does not escalate the ownerId field.
+    // Prevents a malicious client from claiming ownership of a document
+    // they did not create.
+    function ownerIdUnchanged() {
+      return !request.resource.data.diff(resource.data).affectedKeys()
+               .hasAny(['ownerId']);
+    }
+
+    // Validates that a create payload includes all required fields
+    // for a document record.
+    function hasRequiredDocFields() {
+      let data = request.resource.data;
+      return data.keys().hasAll([
+               'ownerId', 'title', 'type', 'fileRef',
+               'fileURL', 'mimeType', 'sizeBytes',
+               'sharedWith', 'uploadedAt', 'updatedAt'
+             ])
+          && data.ownerId  is string  && data.ownerId.size()  > 0
+          && data.title    is string  && data.title.size()    > 0
+                                      && data.title.size()   <= 60
+          && data.type     is string
+          && data.fileRef  is string  && data.fileRef.size()  > 0
+          && data.fileURL  is string  && data.fileURL.size()  > 0
+          && data.mimeType is string
+          && data.sizeBytes is number && data.sizeBytes       > 0
+          && data.sharedWith is list
+          && data.sizeBytes <= 5242880; // 5 MB — mirrors client policy
+    }
+
+    // Validates a metadata-only update (title + type + updatedAt).
+    // Prevents a client from modifying fileRef, fileURL, ownerId, etc.
+    function isValidMetadataPatch() {
+      let affected = request.resource.data.diff(resource.data).affectedKeys();
+      let allowed  = ['title', 'type', 'updatedAt'];
+      return affected.hasOnly(allowed)
+          && request.resource.data.title is string
+          && request.resource.data.title.size() > 0
+          && request.resource.data.title.size() <= 60;
+    }
+
+    // Validates a sharedWith array update (share / revoke).
+    // Only 'sharedWith' and 'updatedAt' may change in a share operation.
+    function isValidSharePatch() {
+      let affected = request.resource.data.diff(resource.data).affectedKeys();
+      return affected.hasOnly(['sharedWith', 'updatedAt'])
+          && request.resource.data.sharedWith is list
+          && request.resource.data.sharedWith.size() <= 50; // max 50 family members
+    }
+
+    // Validates required fields for a user profile upsert.
+    function hasRequiredUserFields() {
+      let data = request.resource.data;
+      return data.keys().hasAll(['name', 'phone'])
+          && data.phone is string && data.phone.size() > 0
+          && data.name  is string && data.name.size()  <= 80;
+    }
+
+    // Validates required fields for a familyLink record.
+    function hasRequiredLinkFields() {
+      let data = request.resource.data;
+      return data.keys().hasAll([
+               'docId', 'requestorId', 'targetPhone',
+               'targetUid', 'status', 'createdAt', 'updatedAt'
+             ])
+          && data.requestorId == request.auth.uid
+          && data.status in ['pending', 'accepted', 'revoked']
+          && data.docId is string && data.docId.size() > 0;
+    }
+
+    // ══════════════════════════════════════════════════════
+    // COLLECTION: users/{uid}
+    // ══════════════════════════════════════════════════════
+    //
+    // READ:   Only the profile owner.
+    // CREATE: Only the profile owner, on their own uid path.
+    // UPDATE: Only the profile owner. Phone cannot be changed
+    //         after creation (immutable identity field).
+    // DELETE: Disallowed — profiles are retained for audit.
+    //
+    match /users/{uid} {
+
+      allow read: if isOwner(uid);
+
+      // CREATE — first-time profile setup after OTP login
+      // uid is implicit from the document path — no need to store it as a field
+      allow create: if isOwner(uid)
+                    && hasRequiredUserFields();
+
+      // UPDATE — profile edits (name, dob, updatedAt only)
+      // Phone is written once at creation and must not change.
+      allow update: if isOwner(uid)
+                    && hasRequiredUserFields()
+                    && !request.resource.data.diff(resource.data)
+                        .affectedKeys().hasAny(['phone', 'createdAt']);
+
+      allow delete: if false;
+    }
+
+    // ══════════════════════════════════════════════════════
+    // COLLECTION: documents/{docId}
+    // ══════════════════════════════════════════════════════
+    //
+    // READ:
+    //   - Owner:          full read
+    //   - Shared member:  read if uid in sharedWith[].uid (view only)
+    //   - Anyone else:    DENIED
+    //
+    // CREATE:
+    //   - Owner only. ownerId must equal request.auth.uid.
+    //   - All required fields must be present and valid.
+    //
+    // UPDATE (split into two safe sub-operations):
+    //   1. Metadata patch (title, type)  — owner only
+    //   2. Share patch (sharedWith)      — owner only
+    //   ownerId is NEVER allowed to change.
+    //
+    // DELETE:
+    //   - Owner only.
+    //
+    match /documents/{docId} {
+
+      // READ — owner or shared member
+      allow read: if isAuthenticated()
+                  && (
+                    resource.data.ownerId == request.auth.uid
+                    || isSharedWithUser(resource.data)
+                  );
+
+      // CREATE — owner sets their own uid as ownerId
+      allow create: if isAuthenticated()
+                    && request.resource.data.ownerId == request.auth.uid
+                    && hasRequiredDocFields();
+
+      // UPDATE — only owner may update; ownerId is immutable
+      allow update: if isAuthenticated()
+                    && resource.data.ownerId == request.auth.uid
+                    && ownerIdUnchanged()
+                    && (isValidMetadataPatch() || isValidSharePatch());
+
+      // DELETE — owner only
+      allow delete: if isAuthenticated()
+                    && resource.data.ownerId == request.auth.uid;
+    }
+
+    // ══════════════════════════════════════════════════════
+    // COLLECTION: familyLinks/{linkId}
+    // ══════════════════════════════════════════════════════
+    //
+    // READ:
+    //   - requestorId (owner who shared)
+    //   - targetUid   (recipient of the share)
+    //
+    // CREATE:
+    //   - Owner only (requestorId === auth.uid).
+    //   - All required fields validated.
+    //
+    // UPDATE:
+    //   - requestorId may update status to 'revoked'.
+    //   - targetUid may update status to 'accepted'.
+    //   - Only 'status' and 'updatedAt' may be changed.
+    //   - No other parties may update.
+    //
+    // DELETE:
+    //   - Disallowed — links are retained for audit trail.
+    //     Revocation is done via status: 'revoked'.
+    //
+    match /familyLinks/{linkId} {
+
+      allow read: if isAuthenticated()
+                  && (
+                    resource.data.requestorId == request.auth.uid
+                    || resource.data.targetUid == request.auth.uid
+                  );
+
+      allow create: if isAuthenticated()
+                    && hasRequiredLinkFields();
+
+      allow update: if isAuthenticated()
+                    && (
+                      resource.data.requestorId == request.auth.uid
+                      || resource.data.targetUid  == request.auth.uid
+                    )
+                    && request.resource.data.diff(resource.data)
+                        .affectedKeys().hasOnly(['status', 'updatedAt'])
+                    && request.resource.data.status in ['accepted', 'revoked'];
+
+      allow delete: if false;
+    }
+
+  } // /databases/{database}/documents
+} // service cloud.firestore

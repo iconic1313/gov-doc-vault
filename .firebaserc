@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "your-firebase-project-id",
+    "dev": "gov---doc-project",
+    "prod": "govdoc-prod"
+  },
+  "targets": {},
+  "etags": {}
+}

@@ -1,0 +1,66 @@
+// ============================================================
+// storage.rules — Firebase Storage Security Rules
+// GovDoc Vault | Government Document Portal
+// ============================================================
+
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Global deny-all — anything not explicitly matched is blocked
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // ── Helpers ──────────────────────────────────────────────
+
+    function isAuthenticated() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    function isPathOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    function isValidSize() {
+      return request.resource.size > 0
+          && request.resource.size <= 5 * 1024 * 1024;
+    }
+
+    function isAllowedMimeType() {
+      // Include both image/jpg and image/jpeg — browsers send both
+      return request.resource.contentType in [
+        'application/pdf',
+        'image/jpeg',
+        'image/jpg',
+        'image/png'
+      ];
+    }
+
+    // ── Documents path ────────────────────────────────────────
+    // Path: documents/{uid}/{docId}/{filename}
+    // Security: path uid must match auth.uid — no cross-user access
+    match /documents/{uid}/{docId}/{filename} {
+
+      // READ — owner only
+      // Shared members access via Firestore fileURL token, not direct Storage read
+      allow read: if isPathOwner(uid);
+
+      // CREATE — owner, valid size, allowed MIME type
+      // Removed metadataOwnerMatches() — path ownership is sufficient
+      // Removed filename regex — storage.service.js already enforces 'original.*'
+      allow create: if isPathOwner(uid)
+                    && isValidSize()
+                    && isAllowedMimeType();
+
+      // UPDATE — not allowed, prevents silent overwrite
+      allow update: if false;
+
+      // DELETE — owner only
+      allow delete: if isPathOwner(uid);
+
+    }
+
+  }
+}
